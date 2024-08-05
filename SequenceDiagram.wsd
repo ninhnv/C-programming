@@ -1,0 +1,70 @@
+@startuml
+actor User
+
+participant "Main Menu" as MainMenu
+participant "Ignition Menu" as IgnitionMenu
+participant "Horn Menu" as HornMenu
+participant "Headlights Menu" as HeadlightsMenu
+participant "File System" as FileSystem
+participant "Command Handler" as CommandHandler
+participant "Update Handler" as UpdateHandler
+participant "Event Listener" as EventListener
+
+== User selects Ignition Menu ==
+User -> MainMenu: Select Ignition Menu
+MainMenu -> IgnitionMenu: Display Ignition Options
+
+== User chooses to Write Ignition Value ==
+User -> IgnitionMenu: Choose Write value
+IgnitionMenu -> FileSystem: Write or Update Ignition Value (e.g., Ignition State: 1)
+FileSystem -> CommandHandler: Update value in input.txt
+CommandHandler -> FileSystem: Confirmation
+
+== User chooses to Listen to Ignition Events ==
+User -> IgnitionMenu: Choose Listen to event
+IgnitionMenu -> EventListener: Start listening for Ignition events
+EventListener -> FileSystem: Read input.txt
+FileSystem -> CommandHandler: Get current Ignition value
+CommandHandler -> EventListener: Send current Ignition value
+EventListener -> IgnitionMenu: Display Ignition value (e.g., Ignition State: 1)
+
+== User selects Horn Menu ==
+User -> MainMenu: Select Horn Menu
+MainMenu -> HornMenu: Display Horn Options
+
+== User chooses to Write Horn Value ==
+User -> HornMenu: Choose Write value
+HornMenu -> FileSystem: Write or Update Horn Value (e.g., Horn Activated: 1)
+FileSystem -> CommandHandler: Update value in input.txt
+CommandHandler -> FileSystem: Confirmation
+
+== User chooses to Listen to Horn Events ==
+User -> HornMenu: Choose Listen to event
+HornMenu -> EventListener: Start listening for Horn events
+EventListener -> FileSystem: Read input.txt
+FileSystem -> CommandHandler: Get current Horn value
+CommandHandler -> EventListener: Send current Horn value
+EventListener -> HornMenu: Display Horn value (e.g., Horn Activated: 1)
+
+== User selects Headlights Menu ==
+User -> MainMenu: Select Headlights Menu
+MainMenu -> HeadlightsMenu: Display Headlights Options
+
+== User chooses to Write Headlights Value ==
+User -> HeadlightsMenu: Choose Write value
+HeadlightsMenu -> FileSystem: Write or Update Headlights Value (e.g., Headlight State: 2)
+FileSystem -> CommandHandler: Update value in input.txt
+CommandHandler -> FileSystem: Confirmation
+
+== User chooses to Listen to Headlights Events ==
+User -> HeadlightsMenu: Choose Listen to event
+HeadlightsMenu -> EventListener: Start listening for Headlights events
+EventListener -> FileSystem: Read input.txt
+FileSystem -> CommandHandler: Get current Headlights value
+CommandHandler -> EventListener: Send current Headlights value
+EventListener -> HeadlightsMenu: Display Headlights value (e.g., Headlight State: 2)
+
+== User Exits ==
+User -> MainMenu: Select Exit
+MainMenu -> User: Exit program
+@enduml
